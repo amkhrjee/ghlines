@@ -1,5 +1,4 @@
 const tBody = document.querySelector("tbody");
-// tBody.style.backgroundColor = "gray";
 
 // Sets the "Lines" header
 const linesTh = document.createElement("th");
