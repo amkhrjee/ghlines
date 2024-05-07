@@ -1,3 +1,5 @@
+console.log("Content Script kicked in!");
+
 const tBody = document.querySelector("tbody");
 
 // Sets the "Lines" header
@@ -20,7 +22,6 @@ const treeRows = tBody.children;
 setTimeout(() => {
   if (treeRows.length) {
     let isFirstRow = true;
-    let count = 1;
     for (row of treeRows) {
       if (!isFirstRow) {
         const linesCountTd = document.createElement("td");
@@ -35,7 +36,6 @@ setTimeout(() => {
             .children[0].title;
         let lineCount = "Loading";
         if (fileName && fileName.includes(".")) {
-          console.log(fileName);
           //  Fetch the line count
           fetch(
             `https://raw.githubusercontent.com/${location.href
@@ -52,8 +52,6 @@ setTimeout(() => {
                 if (value) {
                   lineCount = value.filter((x) => x === 10).length;
                   linesCountSpan.textContent = lineCount;
-
-                  console.log(lineCount);
                 }
               }
             })
