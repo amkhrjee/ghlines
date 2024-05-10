@@ -1,8 +1,11 @@
 {
     "manifest_version": 3,
     "name": "GitHub Lines",
+    "author": {
+        "email": "amkhrjee@gmail.com"
+    },
     "description": "View line-counts of source files in the GitHub file tree",
-    "version": "1.4",
+    "version": "0.0.2",
     "action": {
         "default_title": "GitHub Lines",
         "default_popup": "./popup.html"
