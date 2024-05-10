@@ -8,9 +8,13 @@
     "version": "0.0.2",
     "action": {
         "default_title": "GitHub Lines",
-        "default_popup": "./popup.html"
+        "default_popup": "./popup.html",
+        "default_icon": {
+            "16": "./res/favicon-16x16.png",
+            "32": "./res/favicon-32x32.png",
+            "96": "./res/favicon-96x96.png"
+        }
     },
-    "permissions": [],
     "content_scripts": [
         {
             "matches": [
