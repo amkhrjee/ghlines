@@ -1,20 +1,24 @@
 {
     "manifest_version": 3,
-    "name": "GitHub Lines",
+    "name": "GH Lines",
     "author": {
         "email": "amkhrjee@gmail.com"
     },
     "description": "View line-counts of source files in the GitHub file tree",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "action": {
-        "default_title": "GitHub Lines",
-        "default_popup": "./popup.html",
+        "default_title": "Click to turn on or off",
         "default_icon": {
             "16": "./res/favicon-16x16.png",
             "32": "./res/favicon-32x32.png",
-            "96": "./res/favicon-96x96.png"
+            "48": "./res/android-icon-48x48.png",
+            "96": "./res/favicon-96x96.png",
+            "128": "./res/favicon-128x128.png"
         }
     },
+    "permissions": [
+        "storage"
+    ],
     "content_scripts": [
         {
             "matches": [
@@ -24,5 +28,8 @@
                 "./content.js"
             ]
         }
-    ]
+    ],
+    "background": {
+        "service_worker": "./background.js"
+    }
 }

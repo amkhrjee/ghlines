@@ -55,19 +55,30 @@ const extensionsToSkip = [
   "zip",
 ];
 
-// Sets the "Lines" header
-const linesTh = document.createElement("th");
-const linesSpan = document.createElement("span");
-linesSpan.textContent = "Lines";
-linesTh.appendChild(linesSpan);
+chrome.storage.local.get("isActive", (data) => {
+  const isActive = data.isActive;
+  console.log(isActive);
 
-const tHead = document.querySelector("thead");
-const headerRow = tHead.children[0];
-const headerRowFirstChild = headerRow.children[0];
-linesTh.style = headerRowFirstChild.style;
-linesSpan.style = headerRowFirstChild.children[0].style;
-linesSpan.style.fontWeight = "600";
-headerRow.insertBefore(linesTh, headerRow.children[2]);
+  if (isActive) {
+    console.log("Extension is Active!");
+    // Sets the "Lines" header
+    const linesTh = document.createElement("th");
+    linesTh.id = "linesTh1729";
+    const linesSpan = document.createElement("span");
+    linesSpan.textContent = "Lines";
+    linesTh.appendChild(linesSpan);
+
+    const tHead = document.querySelector("thead");
+    const headerRow = tHead.children[0];
+    const headerRowFirstChild = headerRow.children[0];
+    linesTh.style = headerRowFirstChild.style;
+    linesSpan.style = headerRowFirstChild.children[0].style;
+    linesSpan.style.fontWeight = "600";
+    headerRow.insertBefore(linesTh, headerRow.children[2]);
+
+    addLineCounts();
+  }
+});
 
 const addLineCounts = () => {
   // Sets the line numbers for files
@@ -134,18 +145,23 @@ const observeUrlChange = () => {
   const observer = new MutationObserver((mutations) => {
     if (oldHref !== document.location.href) {
       oldHref = document.location.href;
-      console.log("URL CHANGED!!!");
+      chrome.storage.local.get("isActive", (data) => {
+        const isActive = data.isActive;
+        console.log(isActive);
 
-      setTimeout(() => {
-        addLineCounts();
-      }, 1000);
+        if (isActive) {
+          console.log("Extension is Active!");
+
+          setTimeout(() => {
+            addLineCounts();
+          }, 1000);
+        } else {
+          document.getElementById("linesTh1729").remove();
+        }
+      });
     }
   });
   observer.observe(body, { childList: true, subtree: true });
 };
 
 window.onload = observeUrlChange;
-
-console.log("GHLines Content Script kicked in!");
-
-addLineCounts();
