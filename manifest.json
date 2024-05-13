@@ -5,7 +5,7 @@
         "email": "amkhrjee@gmail.com"
     },
     "description": "View line-counts of source files in the GitHub file tree",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "action": {
         "default_title": "Click to turn on or off",
         "default_icon": {
