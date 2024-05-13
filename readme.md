@@ -1,10 +1,16 @@
-<div style="display:flex; justify-content:space-between; align-items:center;gap:2rem">
+<!-- <div style="display:flex; justify-content:space-between; align-items:center;gap:2rem">
     <img src="./res/favicon-128x128.png" style="margin-bottom: 20">
     <a href="https://chromewebstore.google.com/detail/gh-lines/aoidkjdhlodolpgnmeapkpfmcepkffhp">
     <img height=60 src="https://i.ibb.co/kHCVcqD/webstore.png" style="margin-bottom: 20">
     </a>
 
-</div>
+</div> -->
+
+## <img src="./res/favicon-96x96.png" width=30> GH Lines
+
+<a href="https://chromewebstore.google.com/detail/gh-lines/aoidkjdhlodolpgnmeapkpfmcepkffhp">
+    <img height=60 src="https://i.ibb.co/kHCVcqD/webstore.png" style="margin-bottom: 20">
+</a>
 
 A chrome extension to show line number count of files straight in the GitHub source tree.
 
