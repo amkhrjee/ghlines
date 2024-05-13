@@ -8,17 +8,13 @@ A chrome extension to show line number count of files straight in the GitHub sou
 
 Here's a screenshot from the Chrome Web Store listing:
 
-<div align="center">
 <img width=500  src="https://lh3.googleusercontent.com/mO6LuRkjSBiQY5yFvUK2Mwi345KCzaivprLEU5xX4aT5Au50suNGK7q9nyGssRRrzI4ytuC_Afhh_YLFBssdKaqG=s800-w800-h500">
-</div>
 
 ## Inspiration
 
 This [tweet](https://x.com/thorstenball/status/1787399621540470826) by [@thorstenball](https://twitter.com/thorstenball)
 
-<div align="center">
-    <img  width=400 src="https://i.ibb.co/GppfRwc/image.png">
-</div>
+<img  width=400 src="https://i.ibb.co/GppfRwc/image.png">
 
 ## Check out my other extension
 
