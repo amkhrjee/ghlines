@@ -161,10 +161,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 // For page reload
+// thanks to: https://stackoverflow.com/a/55087265/12404524
+
 if (window.performance.getEntriesByType("navigation")) {
   p = window.performance.getEntriesByType("navigation")[0].type;
 
-  if (p == "reload") {
+  if (p == "reload" || p == "back_forward") {
     document.getElementById("linesTh1729")?.remove();
     let rowCount = 0;
     for (row of treeRows) {
