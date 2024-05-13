@@ -1,5 +1,3 @@
-console.log("Content Script kicks in!");
-
 const tBody = document.querySelector("tbody");
 const extensionsToSkip = [
   "odp",
@@ -59,7 +57,6 @@ const extensionsToSkip = [
 const treeRows = tBody.children;
 
 function addLineCounts() {
-  console.log("Adding Line Counts!");
   // Sets the line numbers for files
   if (treeRows.length) {
     let rowCount = 1;
@@ -174,7 +171,6 @@ if (window.performance.getEntriesByType("navigation")) {
     }
     chrome.storage.local.get("isActive", (data) => {
       let isActive = data.isActive;
-      console.log("From page reload, value of isActive: ", isActive);
 
       if (isActive) {
         setTimeout(() => {
