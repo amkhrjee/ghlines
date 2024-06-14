@@ -1,3 +1,5 @@
+console.log("Content Script invoked!!!");
+
 const tBody = document.querySelector("tbody");
 const extensionsToSkip = [
   "odp",
@@ -57,6 +59,21 @@ const extensionsToSkip = [
 const treeRows = tBody.children;
 
 function addLineCounts() {
+  // Set the header
+  document.getElementById("linesTh1729")?.remove();
+  const linesTh = document.createElement("th");
+  linesTh.id = "linesTh1729";
+  const linesSpan = document.createElement("span");
+  linesSpan.textContent = "Lines";
+  linesTh.appendChild(linesSpan);
+
+  const tHead = document.querySelector("thead");
+  const headerRow = tHead.children[0];
+  const headerRowFirstChild = headerRow.children[0];
+  linesTh.style = headerRowFirstChild.style;
+  linesSpan.style = headerRowFirstChild.children[0].style;
+  linesSpan.style.fontWeight = "600";
+  headerRow.insertBefore(linesTh, headerRow.children[2]);
   // Sets the line numbers for files
   if (treeRows.length) {
     let rowCount = 1;
@@ -126,41 +143,52 @@ function addLineCounts() {
   }
 }
 
+const mutObserver = new MutationObserver(() => {
+  addLineCounts();
+});
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.message === "invoke") {
-    setTimeout(() => {
-      const linesTh = document.createElement("th");
-      linesTh.id = "linesTh1729";
-      const linesSpan = document.createElement("span");
-      linesSpan.textContent = "Lines";
-      linesTh.appendChild(linesSpan);
-
-      const tHead = document.querySelector("thead");
-      const headerRow = tHead.children[0];
-      const headerRowFirstChild = headerRow.children[0];
-      linesTh.style = headerRowFirstChild.style;
-      linesSpan.style = headerRowFirstChild.children[0].style;
-      linesSpan.style.fontWeight = "600";
-      headerRow.insertBefore(linesTh, headerRow.children[2]);
-      addLineCounts();
-      sendResponse({
-        message: "Applied changes!",
-      });
-    }, 1000);
+    console.log("Received invoke request");
+    mutObserver.observe(tBody, { childList: true });
+    // addLineCounts();
   } else if (request.message === "unmount") {
     document.getElementById("linesTh1729")?.remove();
     let rowCount = 0;
     for (row of treeRows) {
-      document.getElementById(`td1729-${rowCount}`).remove();
+      document.getElementById(`td1729-${rowCount}`)?.remove();
     }
     sendResponse({ message: "Unmounted successfullyy" });
   }
 });
 
+if (
+  window.location.href.match(
+    /^https:\/\/github\.com\/([^\/]+)\/([^\/]+)\/tree\/(.+)$/
+  )
+) {
+  mutObserver.observe(tBody, { childList: true });
+}
+
+// while (
+//   !window.location.href.match(
+//     /^https:\/\/github\.com\/([^\/]+)\/([^\/]+)\/tree\/(.+)$/
+//   )
+// ) {
+//   console.log("Not doing anything");
+// }
+
+// mutObserver.observe(tBody, { childList: true });
+
 // For page reload
 // thanks to: https://stackoverflow.com/a/55087265/12404524
 
-if (window.performance.getEntriesByType("navigation")) {
+if (
+  window.location.href.match(
+    /^https:\/\/github\.com\/([^\/]+)\/([^\/]+)\/tree\/(.+)$/
+  ) &&
+  window.performance.getEntriesByType("navigation")
+) {
   p = window.performance.getEntriesByType("navigation")[0].type;
 
   if (p == "reload" || p == "back_forward") {
@@ -173,23 +201,7 @@ if (window.performance.getEntriesByType("navigation")) {
       let isActive = data.isActive;
 
       if (isActive) {
-        setTimeout(() => {
-          const linesTh = document.createElement("th");
-          linesTh.id = "linesTh1729";
-          const linesSpan = document.createElement("span");
-          linesSpan.textContent = "Lines";
-          linesTh.appendChild(linesSpan);
-
-          const tHead = document.querySelector("thead");
-          const headerRow = tHead.children[0];
-          const headerRowFirstChild = headerRow.children[0];
-          linesTh.style = headerRowFirstChild.style;
-          linesSpan.style = headerRowFirstChild.children[0].style;
-          linesSpan.style.fontWeight = "600";
-          headerRow.insertBefore(linesTh, headerRow.children[2]);
-
-          addLineCounts();
-        }, 500);
+        mutObserver.observe(tBody, { childList: true });
       }
     });
   }

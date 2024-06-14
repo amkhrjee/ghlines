@@ -35,7 +35,7 @@ let prevURL = "";
 let sameURLCount = 0;
 // check for when the tab gets updated
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (changeInfo.status == "complete") {
+  if (changeInfo.status == "unloaded") {
     if (tab.url != prevURL) {
       prevURL = tab.url;
 
@@ -44,14 +44,16 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         let isActive = data.isActive;
 
         if (
-          tab.url.match(/^https:\/\/github\.com\/([^/]+)\/([^/]+)\/tree\/(.+)$/)
+          tab.url.match(
+            /^https:\/\/github\.com\/([^\/]+)\/([^\/]+)\/tree\/(.+)$/
+          )
         ) {
           if (isActive) {
-            chrome.tabs.sendMessage(
-              tab.id,
-              { message: "unmount" },
-              (response) => {}
-            );
+            // chrome.tabs.sendMessage(
+            //   tab.id,
+            //   { message: "unmount" },
+            //   (response) => {}
+            // );
             chrome.tabs.sendMessage(
               tab.id,
               { message: "invoke" },
