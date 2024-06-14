@@ -59,6 +59,7 @@ const extensionsToSkip = [
 const treeRows = tBody.children;
 
 function addLineCounts() {
+  console.log("Adding line counts...");
   // Set the header
   document.getElementById("linesTh1729")?.remove();
   const linesTh = document.createElement("th");
@@ -144,14 +145,16 @@ function addLineCounts() {
 }
 
 const mutObserver = new MutationObserver(() => {
+  console.log("MutObserver kicks in!");
   addLineCounts();
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.message === "invoke") {
     console.log("Received invoke request");
-    mutObserver.observe(tBody, { childList: true });
-    // addLineCounts();
+    //  TODO: Gotta add the line counts somehow!
+
+    sendResponse({ message: "Changes applied." });
   } else if (request.message === "unmount") {
     document.getElementById("linesTh1729")?.remove();
     let rowCount = 0;
@@ -162,33 +165,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 });
 
-if (
-  window.location.href.match(
-    /^https:\/\/github\.com\/([^\/]+)\/([^\/]+)\/tree\/(.+)$/
-  )
-) {
-  mutObserver.observe(tBody, { childList: true });
-}
-
-// while (
-//   !window.location.href.match(
-//     /^https:\/\/github\.com\/([^\/]+)\/([^\/]+)\/tree\/(.+)$/
-//   )
-// ) {
-//   console.log("Not doing anything");
-// }
-
-// mutObserver.observe(tBody, { childList: true });
-
 // For page reload
 // thanks to: https://stackoverflow.com/a/55087265/12404524
 
-if (
-  window.location.href.match(
-    /^https:\/\/github\.com\/([^\/]+)\/([^\/]+)\/tree\/(.+)$/
-  ) &&
-  window.performance.getEntriesByType("navigation")
-) {
+if (window.performance.getEntriesByType("navigation")) {
   p = window.performance.getEntriesByType("navigation")[0].type;
 
   if (p == "reload" || p == "back_forward") {
@@ -200,7 +180,12 @@ if (
     chrome.storage.local.get("isActive", (data) => {
       let isActive = data.isActive;
 
-      if (isActive) {
+      if (
+        window.location.href.includes(
+          /^https:\/\/github\.com\/([^\/]+)\/([^\/]+)\/tree\/(.+)$/
+        ) &&
+        isActive
+      ) {
         mutObserver.observe(tBody, { childList: true });
       }
     });

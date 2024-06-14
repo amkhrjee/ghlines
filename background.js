@@ -7,7 +7,9 @@ chrome.storage.local.get("isActive", (data) => {
       .set({
         isActive: true,
       })
-      .then(() => {});
+      .then(() => {
+        console.log("GHLines Activated 🚀");
+      });
   }
 
   isActive = data.isActive;
@@ -21,7 +23,9 @@ chrome.storage.local.get("isActive", (data) => {
   chrome.action.onClicked.addListener(() => {
     isActive = !isActive;
 
-    chrome.storage.local.set({ isActive }).then(() => {});
+    chrome.storage.local.set({ isActive }).then(() => {
+      console.log("Activation toggled! Activation: ", isActive);
+    });
 
     if (isActive) {
       chrome.action.setBadgeText({ text: " ON" });
@@ -34,40 +38,24 @@ chrome.storage.local.get("isActive", (data) => {
 let prevURL = "";
 let sameURLCount = 0;
 // check for when the tab gets updated
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (changeInfo.status == "unloaded") {
-    if (tab.url != prevURL) {
-      prevURL = tab.url;
-
-      // Get the value of isActive
-      chrome.storage.local.get("isActive", (data) => {
-        let isActive = data.isActive;
-
-        if (
-          tab.url.match(
-            /^https:\/\/github\.com\/([^\/]+)\/([^\/]+)\/tree\/(.+)$/
-          )
-        ) {
-          if (isActive) {
-            // chrome.tabs.sendMessage(
-            //   tab.id,
-            //   { message: "unmount" },
-            //   (response) => {}
-            // );
-            chrome.tabs.sendMessage(
-              tab.id,
-              { message: "invoke" },
-              (response) => {}
-            );
-          } else {
-            chrome.tabs.sendMessage(
-              tab.id,
-              { message: "unmount" },
-              (response) => {}
-            );
-          }
-        }
-      });
+chrome.tabs.onUpdated.addListener((_, changeInfo, tab) => {
+  console.log(changeInfo);
+  if ("title" in changeInfo) {
+    if (changeInfo.title.includes("/tree/")) {
+      if (isActive) {
+        console.log("Firing invokation!!!!");
+        chrome.tabs.sendMessage(tab.id, { message: "invoke" }, (response) => {
+          console.log(response);
+        });
+      }
+      // else {
+      //   chrome.tabs.sendMessage(
+      //     tab.id,
+      //     { message: "unmount" },
+      //     (response) => {}
+      //   );
+      // }
+      console.log("AKSHUALLY THE WEBSITE IS LOADED!!!");
     }
   }
 });
