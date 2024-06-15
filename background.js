@@ -52,14 +52,6 @@ chrome.tabs.onUpdated.addListener((_, changeInfo, tab) => {
           console.log(response);
         });
       }
-      // else {
-      //   chrome.tabs.sendMessage(
-      //     tab.id,
-      //     { message: "unmount" },
-      //     (response) => {}
-      //   );
-      // }
-      console.log("AKSHUALLY THE WEBSITE IS LOADED!!!");
     }
   }
 });
