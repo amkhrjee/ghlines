@@ -1,4 +1,4 @@
-console.log("Content Script invoked!!!");
+// console.log("Content Script invoked!!!");
 
 const extensionsToSkip = [
   "odp",
