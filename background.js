@@ -40,8 +40,12 @@ let sameURLCount = 0;
 // check for when the tab gets updated
 chrome.tabs.onUpdated.addListener((_, changeInfo, tab) => {
   console.log(changeInfo);
-  if ("title" in changeInfo) {
-    if (changeInfo.title.includes("/tree/")) {
+  if ("url" in changeInfo) {
+    if (
+      changeInfo.url.match(
+        /^https:\/\/github\.com\/([^\/]+)\/([^\/]+)\/tree\/(.+)$/
+      )
+    ) {
       if (isActive) {
         console.log("Firing invokation!!!!");
         chrome.tabs.sendMessage(tab.id, { message: "invoke" }, (response) => {

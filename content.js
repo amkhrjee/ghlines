@@ -1,6 +1,5 @@
 console.log("Content Script invoked!!!");
 
-const tBody = document.querySelector("tbody");
 const extensionsToSkip = [
   "odp",
   "7z",
@@ -55,10 +54,14 @@ const extensionsToSkip = [
   "xls",
   "xlsx",
   "zip",
+  "xcodeproj",
+  "lproj",
+  "xcassets",
 ];
-const treeRows = tBody.children;
 
 function addLineCounts() {
+  const tBody = document.querySelector("tbody");
+  const treeRows = tBody.children;
   console.log("Adding line counts...");
   // Set the header
   document.getElementById("linesTh1729")?.remove();
@@ -149,10 +152,15 @@ const mutObserver = new MutationObserver(() => {
   addLineCounts();
 });
 
+// For Repo Home/Source File View -> Source Tree navigation
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.message === "invoke") {
     console.log("Received invoke request");
-    //  TODO: Gotta add the line counts somehow!
+    // FIXME: This is extremely bad and fails for large repos,
+    //        unfortunately I can't figure out a better fix at the moment :( PRs are welcome!
+    setTimeout(() => {
+      addLineCounts();
+    }, 1500);
 
     sendResponse({ message: "Changes applied." });
   } else if (request.message === "unmount") {
@@ -165,27 +173,22 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 });
 
-// For page reload
+// For page reload and navigation
 // thanks to: https://stackoverflow.com/a/55087265/12404524
-
 if (window.performance.getEntriesByType("navigation")) {
   p = window.performance.getEntriesByType("navigation")[0].type;
 
   if (p == "reload" || p == "back_forward") {
-    document.getElementById("linesTh1729")?.remove();
-    let rowCount = 0;
-    for (row of treeRows) {
-      document.getElementById(`td1729-${rowCount}`)?.remove();
-    }
     chrome.storage.local.get("isActive", (data) => {
       let isActive = data.isActive;
 
       if (
-        window.location.href.includes(
+        window.location.href.match(
           /^https:\/\/github\.com\/([^\/]+)\/([^\/]+)\/tree\/(.+)$/
         ) &&
         isActive
       ) {
+        const tBody = document.querySelector("tbody");
         mutObserver.observe(tBody, { childList: true });
       }
     });
