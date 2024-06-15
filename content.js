@@ -96,7 +96,12 @@ function addLineCounts() {
           row.children[1]?.children[0]?.children[1]?.children[0]?.children[0]
             .children[0].title;
         let lineCount = "Loading";
-        if (fileName && fileName.includes(".")) {
+        if (
+          fileName &&
+          (fileName.includes(".") ||
+            fileName === "Makefile" ||
+            fileName === "Rakefile")
+        ) {
           const ext = fileName.split(".")[1];
           if (!extensionsToSkip.includes(ext)) {
             //  Fetch the line count
@@ -127,10 +132,10 @@ function addLineCounts() {
                 linesCountSpan.textContent = "Failed to load";
               });
           } else {
-            linesCountSpan.textContent = "";
+            linesCountSpan.textContent = " ";
           }
         } else {
-          linesCountSpan.textContent = "";
+          linesCountSpan.textContent = " ";
         }
       } else {
         isFirstRow = false;
