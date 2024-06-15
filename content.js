@@ -62,7 +62,7 @@ const extensionsToSkip = [
 function addLineCounts() {
   const tBody = document.querySelector("tbody");
   const treeRows = tBody.children;
-  console.log("Adding line counts...");
+  // console.log("Adding line counts...");
   // Set the header
   document.getElementById("linesTh1729")?.remove();
   const linesTh = document.createElement("th");
@@ -148,14 +148,14 @@ function addLineCounts() {
 }
 
 const mutObserver = new MutationObserver(() => {
-  console.log("MutObserver kicks in!");
+  // console.log("MutObserver kicks in!");
   addLineCounts();
 });
 
 // For Repo Home/Source File View -> Source Tree navigation
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.message === "invoke") {
-    console.log("Received invoke request");
+    // console.log("Received invoke request");
     // FIXME: This is extremely bad and fails for large repos,
     //        unfortunately I can't figure out a better fix at the moment :( PRs are welcome!
     setTimeout(() => {
