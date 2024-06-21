@@ -161,8 +161,7 @@ const mutObserver = new MutationObserver(() => {
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.message === "invoke") {
     // console.log("Received invoke request");
-    // FIXME: This is extremely bad and fails for large repos,
-    //        unfortunately I can't figure out a better fix at the moment :( PRs are welcome!
+    // FIXME: This fails for slow networks
     setTimeout(() => {
       addLineCounts();
     }, 1500);

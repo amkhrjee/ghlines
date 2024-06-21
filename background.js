@@ -28,7 +28,7 @@ chrome.storage.local.get("isActive", (data) => {
     });
 
     if (isActive) {
-      chrome.action.setBadgeText({ text: " ON" });
+      chrome.action.setBadgeText({ text: "ON" });
     } else {
       chrome.action.setBadgeText({ text: "OFF" });
     }
