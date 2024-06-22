@@ -1,4 +1,4 @@
-# <img src="./res/favicon-96x96.png" width=30> GH Lines
+# <span style="display: flex; align-items: baseline; justify-content: space-between;"> <span>GH Lines</span> <a href="https://amkhrjee.xyz" style="font-size: 14; font-style: italic; font-family: monospace;">amkhrjee.xyz</a> </span>
 
 <a href="https://chromewebstore.google.com/detail/gh-lines/aoidkjdhlodolpgnmeapkpfmcepkffhp">
     <img height=76 src="./res/webstore.png" style="margin-bottom: 20">
