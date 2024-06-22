@@ -1,7 +1,7 @@
 # <img src="./res/favicon-96x96.png" width=30> GH Lines
 
 <a href="https://chromewebstore.google.com/detail/gh-lines/aoidkjdhlodolpgnmeapkpfmcepkffhp">
-    <img height=60 src="https://i.ibb.co/kHCVcqD/webstore.png" style="margin-bottom: 20">
+    <img height=76 src="./res/webstore.png" style="margin-bottom: 20">
 </a>
 
 A chrome extension to show line number count of files straight in the GitHub source tree.
@@ -12,9 +12,13 @@ Here's a screenshot from the Chrome Web Store listing:
 
 ## Inspiration
 
-This [tweet](https://x.com/thorstenball/status/1787399621540470826) by [@thorstenball](https://twitter.com/thorstenball)
+This tweet:
 
-<img  width=400 src="https://i.ibb.co/GppfRwc/image.png">
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Daydreaming:<br><br>What if GitHub/Sourcegraph/... would display line count in the folder view?<br><br>I&#39;d love it when browsing new repositories. <a href="https://t.co/uUVNysEosH">pic.twitter.com/uUVNysEosH</a></p>&mdash; Thorsten Ball (@thorstenball) <a href="https://twitter.com/thorstenball/status/1787399621540470826?ref_src=twsrc%5Etfw">May 6, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+## Where is the Firefox version?
+
+There is none as of now. I am not a Firefox user, so there is little incentive for me to port it for Firefox. However, if you want a Firefox Add-On, simply raise an issue(or just let me know).
 
 ## Check out my other extension
 
