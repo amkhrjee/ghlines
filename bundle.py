@@ -8,7 +8,9 @@ if len(sys.argv) < 2:
     sys.exit(1)
 
 excluded_file_paths = {r"^.git", r"^build", r"^.prettierrc", r"^.git",
-                       r"^ts", r"^node_modules", r"LICENSE", r"^package", r"^readme", r"^tsconfig", r".vscode", r"pnpm-lock"}
+                       r"^ts", r"^node_modules", r"LICENSE", r"^package", 
+                       r"^readme", r"^tsconfig", r".vscode", r"^pnpm",
+                       r"^res/webstore", r"^res/firefoxaddon", r"^bundle"}
 
 def shouldBeAdded(file_path):
     for each_path in excluded_file_paths:
