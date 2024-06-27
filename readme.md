@@ -2,15 +2,18 @@
 
 <div style="text-align:center">
 <img  center width=160 src="./res/logo.png">
-
+<br/>
 <a href="https://chromewebstore.google.com/detail/gh-lines/aoidkjdhlodolpgnmeapkpfmcepkffhp">
     <img height=76 src="./res/webstore.png" style="margin-bottom: 20">
 </a>
+<br/>
 
 A chrome extension to show line number count of files straight in the GitHub source tree.
+<br/>
 
 <img width=500  src="https://lh3.googleusercontent.com/mO6LuRkjSBiQY5yFvUK2Mwi345KCzaivprLEU5xX4aT5Au50suNGK7q9nyGssRRrzI4ytuC_Afhh_YLFBssdKaqG=s800-w800-h500">
 </div>
+<br/>
 
 ## Inspiration
 
