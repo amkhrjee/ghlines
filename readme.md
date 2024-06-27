@@ -1,5 +1,3 @@
-# GH Lines
-
 <div style="text-align:center">
 <img  center width=160 src="./res/logo.png">
 <br/>
